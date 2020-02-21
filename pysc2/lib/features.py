@@ -1556,7 +1556,8 @@ class Features(object):
         continue
       found_applicable = False
       for func in actions.ABILITY_IDS[a.ability_id]:
-        if func.function_type in actions.POINT_REQUIRED_FUNCS[a.requires_point]:
+        requires_point = True if a.ability_id == 1 else a.requires_point
+        if func.function_type in actions.POINT_REQUIRED_FUNCS[requires_point]:
           if func.general_id == 0 or not hide_specific_actions:
             available_actions.add(func.id)
             found_applicable = True
