@@ -23,6 +23,7 @@ from __future__ import print_function
 
 import binascii
 import os
+import requests
 
 from absl import app
 from absl import flags
@@ -100,8 +101,12 @@ def update_battle_net_cache(replays, bnet_base):
         mkdirs(os.path.dirname(cache_path))
         print(url)
         try:
-          urllib.request.urlretrieve(url, cache_path)
-        except urllib.error.HTTPError as e:
+          headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0'}
+          response = requests.get(url, headers=headers)
+          with open(cache_path, 'wb') as f:
+            f.write(response.content)
+          # urllib.request.urlretrieve(url, cache_path)
+        except Exception as e:
           print("Download failed:", e)
           failed.add(url)
         else:
