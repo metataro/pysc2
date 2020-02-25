@@ -101,7 +101,15 @@ def update_battle_net_cache(replays, bnet_base):
         mkdirs(os.path.dirname(cache_path))
         print(url)
         try:
-          headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0'}
+          headers = {
+              'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+              'Accept-Encoding': 'gzip, deflate',
+              'Accept-Language': 'en-US,en;q=0.5',
+              'Connection': 'keep-alive',
+              'DNT': '1',
+              'Upgrade-Insecure-Requests': '1',
+              'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0',
+          }
           response = requests.get(url, headers=headers)
           with open(cache_path, 'wb') as f:
             f.write(response.content)
